@@ -482,6 +482,10 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+#Public Keys
+ContactsKey
+ContactsKey.pub
+
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
