@@ -2,6 +2,7 @@
 using Contacts.DataAccess.EF.Models;
 using System;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 
 namespace Contacts.DataAccess.EF.Repositories
@@ -29,8 +30,21 @@ namespace Contacts.DataAccess.EF.Repositories
                 existingContact.Phone = contact.Phone;
                 existingContact.Email = contact.Email;
                 existingContact.IsFavorite = contact.IsFavorite;
+                _contactsContext.SaveChanges();
             }
             return contact.ContactId;
+        }
+        public bool Delete(Contact contact)
+        {
+            Contact? oldContact = _contactsContext.Contacts.Find(contact);
+            if (oldContact != null)
+            {
+                _contactsContext.Contacts.Remove(oldContact);
+                _contactsContext.SaveChanges();
+                return true;
+            }
+            return false;
+
         }
     }
 }
