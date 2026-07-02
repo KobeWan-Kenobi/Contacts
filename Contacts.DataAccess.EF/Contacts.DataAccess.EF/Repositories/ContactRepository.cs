@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 
 namespace Contacts.DataAccess.EF.Repositories
 {
-    
+
     public class ContactRepository
     {
         private ContactsContext _contactsContext;
@@ -34,9 +34,9 @@ namespace Contacts.DataAccess.EF.Repositories
             }
             return contact.ContactId;
         }
-        public bool Delete(Contact contact)
+        public bool Delete(int contactID)
         {
-            Contact? oldContact = _contactsContext.Contacts.Find(contact);
+            Contact? oldContact = _contactsContext.Contacts.Find(contactID);
             if (oldContact != null)
             {
                 _contactsContext.Contacts.Remove(oldContact);
@@ -44,7 +44,16 @@ namespace Contacts.DataAccess.EF.Repositories
                 return true;
             }
             return false;
+        }
+        public List<Contact> GetAllContacts()
+        {
+            return _contactsContext.Contacts.ToList();
+        }
 
+        public Contact GetContactById(int contactID)
+        {
+            Contact? contact = _contactsContext.Contacts.Find(contactID);
+            return contact;
         }
     }
 }
